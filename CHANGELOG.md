@@ -1,3 +1,258 @@
+6.6.4 Release notes (2018-08-19)
+=============================================================
+
+### API Breaking Changes
+
+* Nothing
+
+### Enhancements
+
+* add: demo code for showing selected value on StringPickerPopover.
+
+### Bugfixes
+* Nothing
+
+6.6.3 Release notes (2018-08-11)
+=============================================================
+
+### API Breaking Changes
+
+* Nothing
+
+### Enhancements
+
+* Nothing
+
+### Bugfixes
+* fix: fontSize of StringPickerPopover do not work. fontSize has been accorded priority over font's pointSize.
+
+6.6.2 Release notes (2018-06-21)
+=============================================================
+
+### API Breaking Changes
+
+* Nothing
+
+### Enhancements
+
+* add: TextFeildCell for demo
+
+### Bugfixes
+* fix: dimmedView does not disappear.
+
+6.6.1 Release notes (2018-06-11)
+=============================================================
+
+### API Breaking Changes
+
+* Nothing
+
+### Enhancements
+
+* Nothing
+
+### Bugfixes
+* fix: dismiss() is not called correctly.
+
+6.6.0 Release notes (2018-06-03)
+=============================================================
+
+### API Breaking Changes
+
+* Nothing
+
+### Enhancements
+
+* add: setDimmedBackgroundView(enabled:)
+
+### Bugfixes
+* fix: arrow and naviBar are diffrent colors
+* fix: circular references in appear() and disappearAutomatically()
+* refactor: added VoidHandlerType
+
+
+6.5.2 Release notes (2018-05-28)
+=============================================================
+
+### API Breaking Changes
+
+* Nothing
+
+### Enhancements
+
+* Nothing
+
+### Bugfixes
+
+* fix: wierd view color of DatePickerPopover
+
+6.5.1 Release notes (2018-05-27)
+=============================================================
+
+### API Breaking Changes
+
+* Nothing
+
+### Enhancements
+
+* Nothing
+
+### Bugfixes
+
+* Refactor: polish code
+
+6.5.0 Release notes (2018-05-27)
+=============================================================
+
+### API Breaking Changes
+
+* Nothing
+
+### Enhancements
+
+* Add: setClearButton() to String/ColumnStringPickerPopover.
+
+### Bugfixes
+
+* Fix: setSelectedRow/Rows() don't work correctly.
+
+6.4.0 Release notes (2018-05-24)
+=============================================================
+
+### API Breaking Changes
+
+* Nothing
+
+### Enhancements
+
+* Add: setOutsideTapDismissing(allowed:) to popovers. It makes dismissing of popover by tapping outside of it avilable or not.
+
+### Bugfixes
+
+* Nothing
+
+6.3.1 Release notes (2018-05-21)
+=============================================================
+
+### API Breaking Changes
+
+* Nothing
+
+### Enhancements
+
+* Nothing
+
+### Bugfixes
+
+* Fix: popover navi bar color is different from parent navi bar color #83
+
+6.3.0 Release notes (2018-05-20)
+=============================================================
+
+### API Breaking Changes
+
+* Nothing
+
+### Enhancements
+
+* add: font parameter to setDone/Cancle/ClearButton() for each popover #82
+
+### Bugfixes
+
+* Nothing
+
+6.2.1 Release notes (2018-05-19)
+=============================================================
+
+### API Breaking Changes
+
+* Nothing
+
+### Enhancements
+
+* Nothing
+
+### Bugfixes
+
+* Fix: crash when tapping done/cancel button with no items set String/ColumnStringPickerPopover #85
+- Fix: wired arrow color when setting navigation bar color globally. #83
+
+
+6.2.0 Release notes (2018-05-13)
+=============================================================
+
+### API Breaking Changes
+
+* Nothing
+
+### Enhancements
+
+* Add: setValueChange(action:) for all popovers
+
+### Bugfixes
+
+* Nothing
+
+6.1.0 Release notes (2018-02-09)
+=============================================================
+
+### API Breaking Changes
+
+* Nothing
+
+### Enhancements
+
+* Add: setCornerRadius() for popover
+
+### Bugfixes
+
+* Nothing
+
+6.0.1 Release notes (2018-02-02)
+=============================================================
+
+### API Breaking Changes
+
+* Nothing
+
+### Enhancements
+
+* Added the new sample code about how to use StringPickerPopover with UITextField.
+
+### Bugfixes
+
+* Nothing
+
+6.0.0 Release notes (2018-01-28)
+=============================================================
+### API Breaking Changes
+
+* Change ColumnStringPickerPopover setFontSize() to setFontSizes().
+
+### Enhancements
+
+* Added setFont(), setFontColor() and setFontSize() to StringPickerPopover.
+* Added setFonts(), setFontColors() and setFontSizes() to ColumnStringPickerPopover
+
+### Bugfixes
+
+*Fixed minor bugs.
+
+5.3.0 Release notes (2017-08-04)
+=============================================================
+
+### API Breaking Changes
+
+* None
+
+### Enhancements
+
+* Supports for adding UIImage to string directly
+
+### Bugfixes
+
+* None
+
 5.2.3 Release notes (2017-08-03)
 =============================================================
 

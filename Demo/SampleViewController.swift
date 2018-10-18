@@ -11,6 +11,9 @@ import SwiftyPickerPopover
 
 class SampleViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
+    // for keeping selectedRow
+    private var selectedRow: Int = 0
+    
     @IBAction func tappedStringPickerButton(_ sender: UIButton) {
         /// Replace a string with the string to be display.
         let displayStringFor:((String?)->String?)? = { string in
@@ -32,37 +35,82 @@ class SampleViewController: UIViewController, UICollectionViewDataSource, UIColl
         /// Create StringPickerPopover:
         let p = StringPickerPopover(title: "StringPicker", choices: ["value 1","value 2","value 3"])
             .setDisplayStringFor(displayStringFor)
+            .setValueChange(action: { _, _, selectedString in
+                print("current string: \(selectedString)")
+            })
+            .setFontSize(16)
             .setDoneButton(
-                action: {  popover, selectedRow, selectedString in
+                font: UIFont.boldSystemFont(ofSize: 16),
+                color: UIColor.orange,
+                action: { popover, selectedRow, selectedString in
+                    print("done row \(selectedRow) \(selectedString)")
+                    self.selectedRow = selectedRow
+                    
+            })
+            .setCancelButton(action: {_, _, _ in
+                print("cancel") })
+        .setSelectedRow(selectedRow)
+        p.appear(originView: sender, baseViewController: self)
+        p.disappearAutomatically(after: 3.0, completion: { print("automatically hidden")} )
+    }
+    
+    @IBAction func didTapStringPickerWithImageButton(_ sender: UIButton) {
+        /// StringPickerPopover with image:
+        let p = StringPickerPopover(title: "with image", choices: ["value 1","value 2",""])
+            .setImageNames(["imageIcon",nil,"thumbUpIcon"])
+            .setSize(width: 280)
+            .setCornerRadius(0)
+            .setValueChange(action: { _, _, selectedString in
+                print("current string: \(selectedString)")
+            })
+            .setDoneButton(action: {
+                popover, selectedRow, selectedString in
                 print("done row \(selectedRow) \(selectedString)")
             })
             .setCancelButton(action: {_, _, _ in
                 print("cancel") })
+            .setOutsideTapDismissing(allowed: false)
+            .setDimmedBackgroundView(enabled: true)
         p.appear(originView: sender, baseViewController: self)
-        p.disappearAutomatically(after: 3.0, completion: { print("automatically hidden")} )
-        
     }
     
-    @IBAction func tappedStringPickerWithImageButton(_ sender: UIButton) {
-        /// StringPickerPopover with image:
-        let p = StringPickerPopover(title: "with image", choices: ["value 1","value 2",""])
-            .setImageNames(["imageIcon",nil,"thumbUpIcon"])
-            .setSize(width: 280.0)
+    @IBAction func didTapStringPickerClearableButton(_ sender: UIButton) {
+        /// StringPickerPopover Clearable:
+        let p = StringPickerPopover(title: "Clearable", choices: ["value 1","value 2","value3"])
+            .setFont(UIFont.boldSystemFont(ofSize: 30))
+            .setFontColor(.orange)
+            .setFontSize(14)
             .setDoneButton(color: UIColor.red, action: {
                 popover, selectedRow, selectedString in
                 print("done row \(selectedRow) \(selectedString)")
             })
             .setCancelButton(action: {_, _, _ in
                 print("cancel") })
-
+            .setClearButton(title: "Reset", action: {(popover, row, value) in
+                print("clear")
+            })
         p.appear(originView: sender, baseViewController: self)
-
     }
+    
+    @IBAction func didTapStringPickerWithTextField(_ sender: UITextField) {
+        StringPickerPopover(title: "TextField", choices: ["","Text 1", "Text 2", "Text 3"])
+        .setValueChange(action: { _, _, selectedString in
+            print("current string: \(selectedString)")
+        })
+        .setDoneButton(action: { popover, selectedRow, selectedString in
+            sender.text = selectedString
+        })
+        .appear(originView: sender, baseViewController: self)        
+    }
+    
     @IBAction func tappendDatePickerButton(_ sender: UIButton) {
         /// DatePickerPopover appears:
         DatePickerPopover(title: "DatePicker")
             .setDateMode(.date)
             .setSelectedDate(Date())
+            .setValueChange(action: { _, selectedDate in
+                print("current date \(selectedDate)")
+            })
             .setDoneButton(action: { popover, selectedDate in print("selectedDate \(selectedDate)")})
             .setCancelButton(action: { _, _ in print("cancel")})
             .appear(originView: sender, baseViewController: self)
@@ -72,6 +120,9 @@ class SampleViewController: UIViewController, UICollectionViewDataSource, UIColl
         /// DatePickerPopover appears:
         let p = DatePickerPopover(title: "Clearable DatePicker")
             .setLocale(identifier: "en_GB") //en_GB is dd-MM-YYYY. en_US is MM-dd-YYYY. They are both in English.
+            .setValueChange(action: { _, selectedDate in
+                print("current date \(selectedDate)")
+            })
             .setDoneButton(action: { popover, selectedDate in print("selectedDate \(selectedDate)")} )
             .setCancelButton(action: { _, _ in print("cancel")})
             .setClearButton(action: { popover, selectedDate in
@@ -81,10 +132,8 @@ class SampleViewController: UIViewController, UICollectionViewDataSource, UIColl
                 //Instead, hide it.
 //                popover.disappear()
             })
-            
         p.appear(originView: sender, baseViewController: self)
         p.disappearAutomatically(after: 3.0)
-
     }
     
     @IBAction func tappendDatePickerTime5MinIntButton(_ sender: UIButton) {
@@ -93,16 +142,21 @@ class SampleViewController: UIViewController, UICollectionViewDataSource, UIColl
             .setDateMode(.time)
             .setMinuteInterval(5)
             .setPermittedArrowDirections(.down)
+            .setValueChange(action: { _, selectedDate in
+                print("current date \(selectedDate)")
+            })
             .setDoneButton(action: { popover, selectedDate in print("selectedDate \(selectedDate)")} )
             .setCancelButton(action: { _, _ in print("cancel")})
             .appear(originView: sender, baseViewController: self)
     }
 
     @IBAction func countdownButton(_ sender: UIButton) {
-        
         // CountdownPickerPopover appears:
         CountdownPickerPopover(title: "CountdownPicker")
             .setSelectedTimeInterval(TimeInterval())
+            .setValueChange(action: { _, timeInterval in
+                print("current interval \(timeInterval)")
+            })
             .setDoneButton(action: { popover, timeInterval in print("timeInterval \(timeInterval)")} )
             .setCancelButton(action: { _, _ in print("cancel")})
             .setClearButton(action: { popover, timeInterval in print("Clear")
@@ -116,9 +170,17 @@ class SampleViewController: UIViewController, UICollectionViewDataSource, UIColl
         ColumnStringPickerPopover(title: "Columns Strings",
                                   choices: [["Breakfast", "Lunch", "Dinner"], ["Tacos", "Sushi", "Steak", "Waffles", "Burgers"]],
                                   selectedRows: [0,0], columnPercents: [0.5, 0.5])
-        .setDoneButton(action: { popover, selectedRows, selectedStrings in print("selected rows \(selectedRows) strings \(selectedStrings)")})
+        .setDoneButton(action: { popover, selectedRows, selectedStrings in
+            print("selected rows \(selectedRows) strings \(selectedStrings)")
+        })
         .setCancelButton(action: { _,_,_ in print("cancel")})
-        .setFontSize(14)
+        .setValueChange(action: { _, _, selectedStrings in
+            print("current strings: \(selectedStrings)")
+        })
+        .setFonts([UIFont.boldSystemFont(ofSize: 14), nil])
+        .setFontColors([nil, .red])
+        .setFontSizes([20, nil]) // override
+        .setSelectedRows([0,2])
         .appear(originView: sender, baseViewController: self)
     }
 
@@ -139,6 +201,9 @@ class SampleViewController: UIViewController, UICollectionViewDataSource, UIColl
         //StringPickerPopover appears from the cell of collectionView.
         let p = StringPickerPopover(title: "Cell "+(indexPath as NSIndexPath).row.description, choices: ["value 1","value 2","value 3"])
         .setSelectedRow(1)
+        .setValueChange(action: { _, _, selectedString in
+            print("current string: \(selectedString)")
+        })
         .setDoneButton(title:"👌", action: { (popover, selectedRow, selectedString) in
             print("done row \(selectedRow) \(selectedString)")
         })
@@ -154,7 +219,5 @@ class SampleViewController: UIViewController, UICollectionViewDataSource, UIColl
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 5
     }
-
-    
 }
 
